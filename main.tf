@@ -10,7 +10,7 @@ resource "argocd_project" "this" {
   count = var.argocd_project == null ? 1 : 0
 
   metadata {
-    name      = var.destination_cluster != "in-cluster" ? "istio-${var.destination_cluster}" : "istio"
+    name      = var.destination_cluster != "in-cluster" ? "kiali-${var.destination_cluster}" : "kiali"
     namespace = var.argocd_namespace
     annotations = {
       "modern-gitops-stack.io/argocd_namespace" = var.argocd_namespace
@@ -18,7 +18,7 @@ resource "argocd_project" "this" {
   }
 
   spec {
-    description  = "istio application project for cluster ${var.destination_cluster}"
+    description  = "kiali application project for cluster ${var.destination_cluster}"
     source_repos = [var.project_source_repo]
 
 
@@ -98,7 +98,7 @@ resource "argocd_application" "this" {
   }
 
   depends_on = [
-    resource.argocd_project.this
+    resource.null_resource.dependencies
   ]
 }
 

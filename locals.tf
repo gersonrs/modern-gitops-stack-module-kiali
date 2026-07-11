@@ -1,7 +1,13 @@
 locals {
-  domain = var.base_domain != "" ? "${var.subdomain != "" ? "${trimprefix(var.subdomain, ".")}." : ""}${var.base_domain}" : ""
+  domain = "${var.subdomain != "" ? "${trimprefix(var.subdomain, ".")}." : ""}${var.base_domain}"
 
   helm_values = [{
+    httproute = {
+      enabled           = true
+      host              = "kiali.${local.domain}"
+      gateway_name      = var.gateway_name
+      gateway_namespace = var.gateway_namespace
+    }
     kiali-operator = {
       cr = {
         create = true
