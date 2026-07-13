@@ -4,15 +4,10 @@ resource "null_resource" "dependencies" {
 
 # Kiali's `secret:<name>:<key>` reference for external_services.grafana.auth
 # mounts the referenced secret as a volume in the Kiali pod, which only works
-# for secrets in Kiali's own namespace. The Grafana admin credentials live in
-# the kube-prometheus-stack namespace, so we mirror them locally here.
-data "kubernetes_secret_v1" "grafana_admin" {
-  metadata {
-    name      = "kube-prometheus-stack-grafana"
-    namespace = "kube-prometheus-stack"
-  }
-}
-
+# for secrets in Kiali's own namespace. Rather than reading the Grafana admin
+# secret cross-namespace at plan time (which breaks on a fresh bootstrap since
+# it wouldn't exist yet), the password is passed in directly as a variable and
+# the secret is created locally. Grafana's admin username defaults to "admin".
 resource "kubernetes_secret_v1" "grafana_admin" {
   metadata {
     name      = "kube-prometheus-stack-grafana"
@@ -20,8 +15,8 @@ resource "kubernetes_secret_v1" "grafana_admin" {
   }
 
   data = {
-    "admin-user"     = data.kubernetes_secret_v1.grafana_admin.data["admin-user"]
-    "admin-password" = data.kubernetes_secret_v1.grafana_admin.data["admin-password"]
+    "admin-user"     = "admin"
+    "admin-password" = var.grafana_admin_password
   }
 }
 
