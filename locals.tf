@@ -32,6 +32,11 @@ locals {
               enabled      = true
               internal_url = "http://kube-prometheus-stack-grafana.kube-prometheus-stack.svc.cluster.local:80/"
               external_url = "https://grafana.${local.domain}/"
+              auth = {
+                type     = "basic"
+                username = "secret:kube-prometheus-stack-grafana:admin-user"
+                password = "secret:kube-prometheus-stack-grafana:admin-password"
+              }
               dashboards = [
                 {
                   name = "Istio Service Dashboard"
