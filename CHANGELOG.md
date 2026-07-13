@@ -1,5 +1,28 @@
 # Changelog
 
+## [1.3.0](https://github.com/gersonrs/modern-gitops-stack-module-kiali/compare/v1.2.0...v1.3.0) (2026-07-13)
+
+
+### 🚀 New Features
+
+* adjust code ([0ef9f5a](https://github.com/gersonrs/modern-gitops-stack-module-kiali/commit/0ef9f5ac491712087a94913cdd4c2b7121025bcc))
+* adjust code ([c8df7dc](https://github.com/gersonrs/modern-gitops-stack-module-kiali/commit/c8df7dc4ed8512739ef423101ed257eedef4092e))
+
+## [1.2.0](https://github.com/gersonrs/modern-gitops-stack-module-kiali/compare/v1.1.0...v1.2.0) (2026-07-11)
+
+
+### 🚀 New Features
+
+* adjust version ([57c9476](https://github.com/gersonrs/modern-gitops-stack-module-kiali/commit/57c947665d596276f1b77cb366bcdc9275d7dc62))
+
+## [1.1.0](https://github.com/gersonrs/modern-gitops-stack-module-kiali/compare/v1.0.0...v1.1.0) (2026-07-11)
+
+
+### 🚀 New Features
+
+* adjust code ([d307392](https://github.com/gersonrs/modern-gitops-stack-module-kiali/commit/d3073924e2312d187340283c85dbdaf4c34b9f35))
+* adjust code ([04e2f1d](https://github.com/gersonrs/modern-gitops-stack-module-kiali/commit/04e2f1d52690706e844de70aaf099ccf8d421bc5))
+
 ## [2.4.0](https://github.com/GersonRS/modern-gitops-stack-module-minio/compare/v2.3.0...v2.4.0) (2024-05-01)
 
 
