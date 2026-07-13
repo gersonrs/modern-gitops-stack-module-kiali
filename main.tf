@@ -2,6 +2,29 @@ resource "null_resource" "dependencies" {
   triggers = var.dependency_ids
 }
 
+# Kiali's `secret:<name>:<key>` reference for external_services.grafana.auth
+# mounts the referenced secret as a volume in the Kiali pod, which only works
+# for secrets in Kiali's own namespace. The Grafana admin credentials live in
+# the kube-prometheus-stack namespace, so we mirror them locally here.
+data "kubernetes_secret_v1" "grafana_admin" {
+  metadata {
+    name      = "kube-prometheus-stack-grafana"
+    namespace = "kube-prometheus-stack"
+  }
+}
+
+resource "kubernetes_secret_v1" "grafana_admin" {
+  metadata {
+    name      = "kube-prometheus-stack-grafana"
+    namespace = var.namespace
+  }
+
+  data = {
+    "admin-user"     = data.kubernetes_secret_v1.grafana_admin.data["admin-user"]
+    "admin-password" = data.kubernetes_secret_v1.grafana_admin.data["admin-password"]
+  }
+}
+
 data "utils_deep_merge_yaml" "values" {
   input = [for i in concat(local.helm_values, var.helm_values) : yamlencode(i)]
 }
@@ -98,7 +121,8 @@ resource "argocd_application" "this" {
   }
 
   depends_on = [
-    resource.null_resource.dependencies
+    resource.null_resource.dependencies,
+    resource.kubernetes_secret_v1.grafana_admin,
   ]
 }
 
