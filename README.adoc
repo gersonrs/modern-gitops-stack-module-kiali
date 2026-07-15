@@ -39,7 +39,6 @@ The following resources are used by this module:
 - https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/resources/secret_v1[kubernetes_secret_v1.grafana_admin] (resource)
 - https://registry.terraform.io/providers/hashicorp/null/latest/docs/resources/resource[null_resource.dependencies] (resource)
 - https://registry.terraform.io/providers/hashicorp/null/latest/docs/resources/resource[null_resource.this] (resource)
-- https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/data-sources/secret_v1[kubernetes_secret_v1.grafana_admin] (data source)
 - https://registry.terraform.io/providers/cloudposse/utils/latest/docs/data-sources/deep_merge_yaml[utils_deep_merge_yaml.values] (data source)
 
 === Required Inputs
@@ -49,6 +48,12 @@ The following input variables are required:
 ==== [[input_cluster_name]] <<input_cluster_name,cluster_name>>
 
 Description: Name given to the cluster. Value used for naming some the resources created by the module.
+
+Type: `string`
+
+==== [[input_grafana_admin_password]] <<input_grafana_admin_password,grafana_admin_password>>
+
+Description: Grafana admin password, used so Kiali can authenticate to Grafana's API (basic auth). The admin username is fixed to "admin".
 
 Type: `string`
 
@@ -126,7 +131,7 @@ Description: Override of target revision of the application chart.
 
 Type: `string`
 
-Default: `"v1.3.0"`
+Default: `"v1.4.0"`
 
 ==== [[input_cluster_issuer]] <<input_cluster_issuer,cluster_issuer>>
 
@@ -232,10 +237,10 @@ Description: ID to pass other modules in order to refer to this module as a depe
 [cols="a,a",options="header,autowidth"]
 |===
 |Name |Version
-|[[provider_null]] <<provider_null,null>> |3.3.0
 |[[provider_kubernetes]] <<provider_kubernetes,kubernetes>> |2.38.0
 |[[provider_utils]] <<provider_utils,utils>> |2.6.0
 |[[provider_argocd]] <<provider_argocd,argocd>> |7.15.3
+|[[provider_null]] <<provider_null,null>> |3.3.0
 |===
 
 = Resources
@@ -248,7 +253,6 @@ Description: ID to pass other modules in order to refer to this module as a depe
 |https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/resources/secret_v1[kubernetes_secret_v1.grafana_admin] |resource
 |https://registry.terraform.io/providers/hashicorp/null/latest/docs/resources/resource[null_resource.dependencies] |resource
 |https://registry.terraform.io/providers/hashicorp/null/latest/docs/resources/resource[null_resource.this] |resource
-|https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/data-sources/secret_v1[kubernetes_secret_v1.grafana_admin] |data source
 |https://registry.terraform.io/providers/cloudposse/utils/latest/docs/data-sources/deep_merge_yaml[utils_deep_merge_yaml.values] |data source
 |===
 
@@ -314,7 +318,7 @@ Description: ID to pass other modules in order to refer to this module as a depe
 |[[input_target_revision]] <<input_target_revision,target_revision>>
 |Override of target revision of the application chart.
 |`string`
-|`"v1.3.0"`
+|`"v1.4.0"`
 |no
 
 |[[input_cluster_issuer]] <<input_cluster_issuer,cluster_issuer>>
@@ -378,6 +382,12 @@ object({
 |`string`
 |`"istio-ingress"`
 |no
+
+|[[input_grafana_admin_password]] <<input_grafana_admin_password,grafana_admin_password>>
+|Grafana admin password, used so Kiali can authenticate to Grafana's API (basic auth). The admin username is fixed to "admin".
+|`string`
+|n/a
+|yes
 
 |===
 
