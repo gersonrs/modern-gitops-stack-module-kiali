@@ -115,3 +115,9 @@ variable "gateway_namespace" {
   type        = string
   default     = "istio-ingress"
 }
+
+variable "grafana_admin_password" {
+  description = "Grafana admin password, used so Kiali can authenticate to Grafana's API (basic auth). The admin username is fixed to \"admin\"."
+  type        = string
+  sensitive   = true
+}
