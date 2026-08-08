@@ -20,6 +20,19 @@ resource "kubernetes_secret_v1" "grafana_admin" {
   }
 }
 
+# Secret name and key required by Kiali's openid auth strategy to find the
+# OIDC client secret: https://kiali.io/docs/configuration/authentication/openid/
+resource "kubernetes_secret_v1" "oidc" {
+  metadata {
+    name      = "kiali"
+    namespace = var.namespace
+  }
+
+  data = {
+    "oidc-secret" = var.oidc.client_secret
+  }
+}
+
 data "utils_deep_merge_yaml" "values" {
   input = [for i in concat(local.helm_values, var.helm_values) : yamlencode(i)]
 }
@@ -118,6 +131,7 @@ resource "argocd_application" "this" {
   depends_on = [
     resource.null_resource.dependencies,
     resource.kubernetes_secret_v1.grafana_admin,
+    resource.kubernetes_secret_v1.oidc,
   ]
 }
 

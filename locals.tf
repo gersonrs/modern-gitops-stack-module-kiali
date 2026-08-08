@@ -15,14 +15,31 @@ locals {
         annotations : {}
         spec = {
           auth = {
-            strategy = "anonymous"
+            strategy = "openid"
+            openid = {
+              client_id  = var.oidc.client_id
+              issuer_uri = var.oidc.issuer_url
+              # No OIDC integration with the Kubernetes API server, so RBAC-based
+              # namespace access control is disabled; all users share cluster-wide access.
+              disable_rbac             = true
+              username_claim           = "email"
+              scopes                   = ["openid", "profile", "email"]
+              insecure_skip_verify_tls = var.cluster_issuer != "letsencrypt-prod"
+            }
           }
           deployment = {
             cluster_wide_access = true
             view_only_mode      = false
           }
           server = {
-            web_root = "/kiali"
+            web_root   = "/kiali"
+            web_fqdn   = "kiali.${local.domain}"
+            web_schema = "https"
+            # The Istio gateway does not forward X-Forwarded-Port, so Kiali
+            # cannot guess the ingress port and falls back to its internal
+            # server port (20001), producing invalid redirect URLs. Pin the
+            # external ingress port explicitly.
+            web_port = "443"
           }
           external_services = {
             prometheus = {
