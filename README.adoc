@@ -37,6 +37,7 @@ The following resources are used by this module:
 - https://registry.terraform.io/providers/argoproj-labs/argocd/latest/docs/resources/application[argocd_application.this] (resource)
 - https://registry.terraform.io/providers/argoproj-labs/argocd/latest/docs/resources/project[argocd_project.this] (resource)
 - https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/resources/secret_v1[kubernetes_secret_v1.grafana_admin] (resource)
+- https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/resources/secret_v1[kubernetes_secret_v1.oidc] (resource)
 - https://registry.terraform.io/providers/hashicorp/null/latest/docs/resources/resource[null_resource.dependencies] (resource)
 - https://registry.terraform.io/providers/hashicorp/null/latest/docs/resources/resource[null_resource.this] (resource)
 - https://registry.terraform.io/providers/cloudposse/utils/latest/docs/data-sources/deep_merge_yaml[utils_deep_merge_yaml.values] (data source)
@@ -56,6 +57,12 @@ Type: `string`
 Description: Grafana admin password, used so Kiali can authenticate to Grafana's API (basic auth). The admin username is fixed to "admin".
 
 Type: `string`
+
+==== [[input_oidc]] <<input_oidc,oidc>>
+
+Description: OIDC configuration used to enable Kiali's OpenID Connect login (issuer_url, client_id and client_secret are required).
+
+Type: `any`
 
 === Optional Inputs
 
@@ -131,7 +138,7 @@ Description: Override of target revision of the application chart.
 
 Type: `string`
 
-Default: `"v1.4.0"`
+Default: `"v1.5.0"`
 
 ==== [[input_cluster_issuer]] <<input_cluster_issuer,cluster_issuer>>
 
@@ -251,6 +258,7 @@ Description: ID to pass other modules in order to refer to this module as a depe
 |https://registry.terraform.io/providers/argoproj-labs/argocd/latest/docs/resources/application[argocd_application.this] |resource
 |https://registry.terraform.io/providers/argoproj-labs/argocd/latest/docs/resources/project[argocd_project.this] |resource
 |https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/resources/secret_v1[kubernetes_secret_v1.grafana_admin] |resource
+|https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/resources/secret_v1[kubernetes_secret_v1.oidc] |resource
 |https://registry.terraform.io/providers/hashicorp/null/latest/docs/resources/resource[null_resource.dependencies] |resource
 |https://registry.terraform.io/providers/hashicorp/null/latest/docs/resources/resource[null_resource.this] |resource
 |https://registry.terraform.io/providers/cloudposse/utils/latest/docs/data-sources/deep_merge_yaml[utils_deep_merge_yaml.values] |data source
@@ -318,7 +326,7 @@ Description: ID to pass other modules in order to refer to this module as a depe
 |[[input_target_revision]] <<input_target_revision,target_revision>>
 |Override of target revision of the application chart.
 |`string`
-|`"v1.4.0"`
+|`"v1.5.0"`
 |no
 
 |[[input_cluster_issuer]] <<input_cluster_issuer,cluster_issuer>>
@@ -386,6 +394,12 @@ object({
 |[[input_grafana_admin_password]] <<input_grafana_admin_password,grafana_admin_password>>
 |Grafana admin password, used so Kiali can authenticate to Grafana's API (basic auth). The admin username is fixed to "admin".
 |`string`
+|n/a
+|yes
+
+|[[input_oidc]] <<input_oidc,oidc>>
+|OIDC configuration used to enable Kiali's OpenID Connect login (issuer_url, client_id and client_secret are required).
+|`any`
 |n/a
 |yes
 

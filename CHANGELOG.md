@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.5.0](https://github.com/gersonrs/modern-gitops-stack-module-kiali/compare/v1.4.0...v1.5.0) (2026-08-08)
+
+
+### 🚀 New Features
+
+* enable OIDC auth and upgrade kiali-operator to v2.30.0 ([0af9924](https://github.com/gersonrs/modern-gitops-stack-module-kiali/commit/0af9924b51cdf0dfcad21cc4e195554f99e0247e))
+* enable OIDC auth and upgrade kiali-operator to v2.30.0 ([6b5f281](https://github.com/gersonrs/modern-gitops-stack-module-kiali/commit/6b5f28190ff236384ecc9cf7d28635cb63fb540a))
+
 ## [1.4.0](https://github.com/gersonrs/modern-gitops-stack-module-kiali/compare/v1.3.0...v1.4.0) (2026-07-15)
 
 
