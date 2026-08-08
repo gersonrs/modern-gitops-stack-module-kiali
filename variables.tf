@@ -121,3 +121,9 @@ variable "grafana_admin_password" {
   type        = string
   sensitive   = true
 }
+
+variable "oidc" {
+  description = "OIDC configuration used to enable Kiali's OpenID Connect login (issuer_url, client_id and client_secret are required)."
+  type        = any
+  sensitive   = true
+}
