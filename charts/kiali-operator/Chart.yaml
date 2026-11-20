@@ -2,7 +2,7 @@ apiVersion: v2
 dependencies:
   - name: kiali-operator
     repository: https://kiali.org/helm-charts
-    version: "*.*.*"
+    version: "2.35.0"
 description: |
   This chart installs kiali-operator
 name: kiali-operator
