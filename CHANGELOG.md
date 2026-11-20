@@ -1,5 +1,16 @@
 # Changelog
 
+## [2.0.0](https://github.com/gersonrs/modern-gitops-stack-module-kiali/compare/v1.5.0...v2.0.0) (2026-11-20)
+
+
+### ⚠ BREAKING CHANGES
+
+* provider major bumps and a stricter Terraform baseline; consumers must run `terraform init -upgrade`.
+
+### 🚀 New Features
+
+* upgrade charts, providers and Terraform baseline ([#10](https://github.com/gersonrs/modern-gitops-stack-module-kiali/issues/10)) ([f181141](https://github.com/gersonrs/modern-gitops-stack-module-kiali/commit/f1811411ccd4d6d395c4d4ae8205689ba970dbb7))
+
 ## [1.5.0](https://github.com/gersonrs/modern-gitops-stack-module-kiali/compare/v1.4.0...v1.5.0) (2026-08-08)
 
 
