@@ -1,7 +1,70 @@
 = modern-gitops-stack-module-kiali
 // Document attributes to replace along the document
+:kiali-operator-chart-version: 2.35.0
+:original-repo-url: https://github.com/kiali/kiali-operator
 
-kubectl kustomize "github.com/kubernetes-sigs/gateway-api/config/crd?ref=v1.2.1" -o charts/crds/
+A https://modern-gitops-stack.io[Modern GitOps Stack] module to deploy Kiali, the observability console for the Istio service mesh.
+
+The kiali-operator chart used by this module is shipped in this repository as well, in order to avoid any unwanted behaviors caused by unsupported versions.
+
+[cols="1,1,1",options="autowidth,header"]
+|===
+|Current Chart Version |Original Repository |Default Values
+|*2.35.0* |https://github.com/kiali/kiali-operator/tree/main/operator/helm-charts/kiali-operator[kiali-operator] |https://artifacthub.io/packages/helm/kiali-operator/kiali-operator/2.35.0?modal=values[`values.yaml`]
+|===
+
+== Usage
+
+This module can be declared by adding the following block to your Terraform configuration:
+
+[source,terraform]
+----
+module "kiali" {
+  source = "git::https://github.com/GersonRS/modern-gitops-stack-module-kiali.git?ref=<RELEASE>"
+
+  cluster_name           = local.cluster_name
+  base_domain            = local.base_domain
+  subdomain              = local.subdomain
+  cluster_issuer         = local.cluster_issuer
+  app_autosync           = local.app_autosync
+  grafana_admin_password = module.kube-prometheus-stack.grafana_admin_password
+  oidc                   = module.oidc.oidc
+
+  dependency_ids = {
+    argocd                = module.argocd.id
+    istio                 = module.istio.id
+    kube-prometheus-stack = module.kube-prometheus-stack.id
+    oidc                  = module.oidc.id
+    crds_bootstrap        = module.crds_bootstrap.id
+  }
+}
+----
+
+The application is deployed to the `istio-system` namespace.
+
+== Technical Reference
+
+=== Dependencies
+
+==== `module.argocd.id`
+
+Argo CD applies the application.
+
+==== `module.istio.id`
+
+Kiali observes the Istio service mesh.
+
+==== `module.kube-prometheus-stack.id`
+
+Kiali reads metrics from Prometheus.
+
+==== `module.oidc.id`
+
+Kiali authenticates through Keycloak.
+
+==== `module.crds_bootstrap.id`
+
+Kiali ships a ServiceMonitor, which needs the Prometheus Operator CRDs.
 
 // BEGIN_TF_DOCS
 === Requirements
