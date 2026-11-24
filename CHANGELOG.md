@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.0.1](https://github.com/gersonrs/modern-gitops-stack-module-kiali/compare/v2.0.0...v2.0.1) (2026-11-24)
+
+
+### 📚 Documentation
+
+* add usage and dependencies to the module documentation ([#12](https://github.com/gersonrs/modern-gitops-stack-module-kiali/issues/12)) ([dafd829](https://github.com/gersonrs/modern-gitops-stack-module-kiali/commit/dafd829f2c06a420e6f18333488b8e1125c1cbd5))
+
 ## [2.0.0](https://github.com/gersonrs/modern-gitops-stack-module-kiali/compare/v1.5.0...v2.0.0) (2026-11-20)
 
 
